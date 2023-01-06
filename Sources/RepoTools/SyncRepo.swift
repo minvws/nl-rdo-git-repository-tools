@@ -85,9 +85,17 @@ extension RepoTools {
 			try git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory, matchingGrepPatterns: tagMatchingGrepPatterns, strippingGrepPattern: strippingGrepPattern)
 			
 			// Create a PR:
-			print("✅ Constructing a PR request and opening it in the browser")
-			let pullRequestURL = "https://github.com/\(publicRemote.repo.path)/compare/\(syncBranch.name)?quick_pull=1&title=Sync+public+repo+from+private+repository&body=This+PR+proposes+the+latest+changes+from+private+to+public+repository."
-			try shellOut(to: "open", arguments: [pullRequestURL])
+			
+			var pullRequestURL = URLComponents(string: "https://github.com/\(publicRemote.repo.path)/compare/\(syncBranch.name)")!
+			pullRequestURL.queryItems = [
+				URLQueryItem(name: "quick_pull", value: "1"),
+				URLQueryItem(name: "title", value: "Sync public repo from private repository"),
+				URLQueryItem(name: "body", value: "This PR proposes the latest changes from private to public repository."),
+			]
+
+			print("✅ Constructing a PR request and opening it in the browser: \(pullRequestURL.string!)")
+			
+			try shellOut(to: "open", arguments: [pullRequestURL.string!])
 		}
 	}
 }
