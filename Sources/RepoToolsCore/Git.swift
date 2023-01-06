@@ -30,9 +30,6 @@ public enum Git {
 			return false
 		}
 	}
-	public static func hasPrivateRepo(workingDirectory: URL) throws -> Bool {
-		return try !shellOut(to: "git", arguments: ["config remote.private-repo.url"], at: workingDirectory.path).isEmpty
-	}
 	
 	public static func addRemote(remote: Remote, workingDirectory: URL) throws {
 		_ = try shellOut(to: "git", arguments: ["remote add \(remote.name) git@github.com:\(remote.repo.path)"], at: workingDirectory.path).isEmpty
