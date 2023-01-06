@@ -90,12 +90,13 @@ extension RepoTools {
 			pullRequestURL.queryItems = [
 				URLQueryItem(name: "quick_pull", value: "1"),
 				URLQueryItem(name: "title", value: "Sync public repo from private repository"),
-				URLQueryItem(name: "body", value: "This PR proposes the latest changes from private to public repository."),
+				URLQueryItem(name: "body", value: "This PR proposes the latest changes in \(syncBranch.name) from private to public repository."),
 			]
 
-			print("✅ Constructing a PR request and opening it in the browser: \(pullRequestURL.string!)")
-			
-			try shellOut(to: "open", arguments: [pullRequestURL.string!])
+			if let urlString = pullRequestURL.string {
+				print("✅ Constructing a PR request and opening it in the browser: \(urlString)")
+				try shellOut(to: "open", arguments: ["\(urlString)"])
+			}
 		}
 	}
 }
