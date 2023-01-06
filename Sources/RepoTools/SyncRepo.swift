@@ -49,7 +49,10 @@ extension RepoTools {
 		}
 		
 		mutating func run() throws {
-			guard try Git.workingDirectoryIsPorcelain(workingDirectory) else { throw ValidationError("""
+			
+			let git = Git(provider: shellOut)
+			
+			guard try git.workingDirectoryIsPorcelain(workingDirectory) else { throw ValidationError("""
 	🧾 Your working directory contains changes.
 	To avoid losing changes, this script only works if you have a clean directory.
 	Commit any work to the current branch, and try again.
@@ -57,18 +60,18 @@ extension RepoTools {
 			) }
 			
 			let publicRemote = Remote(name: "public-repo", repo: publicGithubRepo)
-			try publicRemote.addIfNeeded(workingDirectory: workingDirectory)
+			try publicRemote.addIfNeeded(workingDirectory: workingDirectory, git: git)
 			
 			let privateRemote = Remote(name: "private-repo", repo: privateGithubRepo)
-			try privateRemote.addIfNeeded(workingDirectory: workingDirectory)
+			try privateRemote.addIfNeeded(workingDirectory: workingDirectory, git: git)
 			
-			try Git.fetchRepo(remote: privateRemote, workingDirectory: workingDirectory)
+			try git.fetchRepo(remote: privateRemote, workingDirectory: workingDirectory)
 			
-			let syncBranch = try Git.createSyncBranch(workingDirectory: workingDirectory)
+			let syncBranch = try git.createSyncBranch(workingDirectory: workingDirectory)
 			
-			try Git.push(branch: syncBranch, remote: publicRemote, workingDirectory: workingDirectory)
+			try git.push(branch: syncBranch, remote: publicRemote, workingDirectory: workingDirectory)
 			
-			try Git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory)
+			try git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory)
 			
 			// Create a PR:
 			print("✅ Constructing a PR request and opening it in the browser")
