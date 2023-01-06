@@ -34,6 +34,17 @@ extension RepoTools {
 			transform: GithubRepo.init)
 		var privateGithubRepo: GithubRepo
 		
+		@Option(
+			name: [.customLong("matching-tags-pattern", withSingleDash: false)],
+			help: "An array of `grep -e` patterns which tags must conform to at-least-one of to be included in what's pushed")
+		var tagMatchingGrepPatterns: [String]
+		
+		@Option(
+			name: [.customLong("excluding-tag-pattern", withSingleDash: false)],
+			help: "An single value pattern which - if matched - will exclude a tag based on `grep -v`")
+		var strippingGrepPattern: String
+		
+		
 		// `workingDirectory.path` is what we want
 		@Argument(help: "The working directory", transform: { string in
 			let url = URL(fileURLWithPath: string, isDirectory: true)
@@ -71,7 +82,7 @@ extension RepoTools {
 			
 			try git.push(branch: syncBranch, remote: publicRemote, workingDirectory: workingDirectory)
 			
-			try git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory, matchingGrepPatterns: ["Holder-", "Verifier-"], strippingGrepPattern: #"\-RC"#)
+			try git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory, matchingGrepPatterns: tagMatchingGrepPatterns, strippingGrepPattern: strippingGrepPattern)
 			
 			// Create a PR:
 			print("✅ Constructing a PR request and opening it in the browser")
