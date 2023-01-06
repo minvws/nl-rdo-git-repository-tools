@@ -138,7 +138,7 @@ final class RepoToolsCoreTests: XCTestCase {
 
 		let git = Git(provider: fakeShellOut)
 
-		try git.pushAllReleaseTags(remote: .stubRemote, workingDirectory: .stubWorkingDirectory)
+		try git.pushAllReleaseTags(remote: .stubRemote, workingDirectory: .stubWorkingDirectory, matchingGrepPatterns: ["Holder-", "Verifier-"], strippingGrepPattern: #"\-RC"#)
 
 		let expected = #"""
 			git show-ref --tags | grep -v -F "$(git ls-remote --tags my-remote | grep -v '\^{}' | cut -f 2)" | grep -e "Holder-" -e "Verifier-" | grep -v "\-RC" | cut -f2 -d " " | xargs -L1 git push my-remote

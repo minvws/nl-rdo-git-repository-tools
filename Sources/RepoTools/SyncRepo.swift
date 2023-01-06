@@ -71,7 +71,7 @@ extension RepoTools {
 			
 			try git.push(branch: syncBranch, remote: publicRemote, workingDirectory: workingDirectory)
 			
-			try git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory)
+			try git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory, matchingGrepPatterns: ["Holder-", "Verifier-"], strippingGrepPattern: #"\-RC"#)
 			
 			// Create a PR:
 			print("✅ Constructing a PR request and opening it in the browser")

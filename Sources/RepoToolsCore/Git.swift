@@ -92,10 +92,23 @@ public struct Git {
 		commandFragments += [#"git show-ref --tags"#]
 		// Match only those that don't appear on `public-repo`
 		commandFragments += [#"grep -v -F "$(git ls-remote --tags \#(remote.name) | grep -v '\^{}' | cut -f 2)""#]
-		// Match only those that are in our release tag format
-		commandFragments += [#"grep -e "Holder-" -e "Verifier-""#]
-		// Strip out the RCs
-		commandFragments += [#"grep -v "\-RC""#]
+
+		// Match only those that fit a `grep -e` pattern:
+		if let matchingGrepPatterns, !matchingGrepPatterns.isEmpty {
+
+			let matchGrepCommand = matchingGrepPatterns
+				.map { #" -e "\#($0)""# }
+				.joined()
+
+			// grep -e "Holder-" -e "Verifier-"
+			commandFragments += [#"grep\#(matchGrepCommand)"#]
+		}
+
+		// Strip out pattern
+		if let strippingGrepPattern, !strippingGrepPattern.isEmpty {
+			commandFragments += [#"grep -v "\#(strippingGrepPattern)""#]
+		}
+
 		// Get the tag name, drop the hash.
 		commandFragments += [#"cut -f2 -d " ""#]
 		// Finally push each tag to `public-repo` remote.
