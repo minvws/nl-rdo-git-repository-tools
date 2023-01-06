@@ -94,8 +94,8 @@ extension RepoTools {
 			]
 
 			if let urlString = pullRequestURL.string {
-				print("✅ Constructing a PR request and opening it in the browser: \(urlString)")
-				try shellOut(to: "open", arguments: ["\(urlString)"])
+				print("✅ You can open a PR request via this URL: \(urlString)")
+				// try shellOut(to: "open", arguments: ["\(urlString)"])
 			}
 		}
 	}
