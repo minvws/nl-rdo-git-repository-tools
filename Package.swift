@@ -30,8 +30,8 @@ let package = Package(
         ),
         .target(
             name: "RepoToolsCore",
-            dependencies: ["ShellOut", "Nimble"]
+            dependencies: ["ShellOut"]
         ),
-		.testTarget(name: "RepoToolsCoreTests", dependencies: ["RepoToolsCore"])
+		.testTarget(name: "RepoToolsCoreTests", dependencies: ["RepoToolsCore", "Nimble"])
     ]
 )
