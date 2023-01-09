@@ -78,7 +78,7 @@ public struct Git {
 		// "20221230-111743"
 		let timestamp = {
 			let df = DateFormatter()
-			df.dateFormat = "yyyyMMdd-hhmmss"
+			df.dateFormat = "yyyyMMdd-HHmmss"
 			return df.string(from: now)
 		}()
 		

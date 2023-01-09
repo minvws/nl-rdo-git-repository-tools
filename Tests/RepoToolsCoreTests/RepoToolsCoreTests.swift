@@ -126,11 +126,11 @@ final class RepoToolsCoreTests: XCTestCase {
 
 		let syncBranch = try git.createSyncBranch(workingDirectory: .stubWorkingDirectory, now: Date(timeIntervalSince1970: 1673008322))
 
-		expect(syncBranch.name) == "sync/20230106-013202"
+		expect(syncBranch.name) == "sync/20230106-133202"
 		
 		expect(self.calls.count) == 1
 		expect(self.calls[0].command) == "git"
-		expect(self.calls[0].arguments) == ["branch sync/20230106-013202 private-repo/main"]
+		expect(self.calls[0].arguments) == ["branch sync/20230106-133202 private-repo/main"]
 		expect(self.calls[0].at) == "/some-path"
 	}
 
