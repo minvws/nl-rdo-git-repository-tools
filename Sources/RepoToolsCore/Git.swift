@@ -78,6 +78,7 @@ public struct Git {
 		// "20221230-111743"
 		let timestamp = {
 			let df = DateFormatter()
+			df.timeZone = TimeZone(identifier: "Europe/Amsterdam")
 			df.dateFormat = "yyyyMMdd-HHmmss"
 			return df.string(from: now)
 		}()
