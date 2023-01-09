@@ -1,5 +1,12 @@
 # RDO Git Repository Tools
-## Usage
+
+There is currently one tool implemented: `sync-repo`.
+
+## Sync Repo
+
+`sync-repo` is a tool for automating the syncing of a "private" git origin with a "public" git origin, together with a set of tags that exists only at the private repo, so that a merge PR can be quickly opened.
+
+### Usage
 
 ```
 repotools sync-repo \
