@@ -134,7 +134,7 @@ final class RepoToolsCoreTests: XCTestCase {
 		expect(self.calls[0].at) == "/some-path"
 	}
 
-	func test() throws {
+	func testPushAllRemoteTags() throws {
 
 		let git = Git(provider: fakeShellOut)
 
