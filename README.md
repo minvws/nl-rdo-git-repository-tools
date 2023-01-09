@@ -3,12 +3,12 @@
 
 ```
 repotools sync-repo \
-    --public-github-path iandundas/SyncRepoSampleRepo \
-    --private-github-path iandundas/SyncRepoSampleRepo-private \ 
-    --matching-tags-pattern "Holder-" \    # Tags matching this tag.. 
-    --matching-tags-pattern "Verifier-" \  # .. or this tag, will be pushed.
-    --excluding-tag-pattern \\-RC \        # don't push "-RC" (Release Candidate) tags
-    ~/AppsDev/CoronaCheck/coronacheck-ios-private 
+    --public-github-path organisation/repo-public \     # github path
+    --private-github-path organisation/repo-private \   # github path
+    --matching-tags-pattern "Holder-" \                 # Tags matching this tag .. 
+    --matching-tags-pattern "Verifier-" \               # .. or this tag, will be pushed.
+    --excluding-tag-pattern \\-RC \                     # don't push "-RC" (Release Candidate) tags
+    ~/path/to/your-repo-private
 ```
 
 ## Installation: 

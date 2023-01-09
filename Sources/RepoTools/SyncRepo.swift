@@ -37,15 +37,13 @@ extension RepoTools {
 		@Option(
 			name: [.customLong("matching-tags-pattern", withSingleDash: false)],
 			help: "An array of `grep -e` patterns which tags must conform to at-least-one of to be included in what's pushed")
-		var tagMatchingGrepPatterns: [String]
+		var tagMatchingGrepPatterns: [String] = []
 		
 		@Option(
 			name: [.customLong("excluding-tag-pattern", withSingleDash: false)],
 			help: "An single value pattern which - if matched - will exclude a tag based on `grep -v`")
-		var strippingGrepPattern: String
+		var strippingGrepPattern: String? = nil
 		
-		
-		// `workingDirectory.path` is what we want
 		@Argument(help: "The working directory", transform: { string in
 			let url = URL(fileURLWithPath: string, isDirectory: true)
 			return url
@@ -85,7 +83,6 @@ extension RepoTools {
 			try git.pushAllReleaseTags(remote: publicRemote, workingDirectory: workingDirectory, matchingGrepPatterns: tagMatchingGrepPatterns, strippingGrepPattern: strippingGrepPattern)
 			
 			// Create a PR:
-			
 			var pullRequestURL = URLComponents(string: "https://github.com/\(publicRemote.repo.path)/compare/\(syncBranch.name)")!
 			pullRequestURL.queryItems = [
 				URLQueryItem(name: "quick_pull", value: "1"),
@@ -95,7 +92,6 @@ extension RepoTools {
 
 			if let urlString = pullRequestURL.string {
 				print("✅ You can open a PR request via this URL: \(urlString)")
-				// try shellOut(to: "open", arguments: ["\(urlString)"])
 			}
 		}
 	}
