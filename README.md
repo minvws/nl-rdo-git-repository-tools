@@ -18,14 +18,23 @@ repotools sync-repo \
     ~/path/to/your-repo-private
 ```
 
+## Requirements
+
+* Xcode 14.1 or higher
+* macOS 13.0.0 or higher
+
 ## Installation: 
 
 The project uses the [Mint](https://github.com/yonaskolb/Mint) package manager: 
 
 `brew install mint` 
 
-After that, you can install this tool using:
+After that, you can install this tool globally using:
 
-`mint install minvws/nl-rdo-git-repository-tools`
+`mint install minvws/nl-rdo-git-repository-tools@main`
 
-(you may wish to add `.mint/bin` to your $PATH)
+or 
+
+`mint install git@github.com:minvws/nl-rdo-git-repository-tools.git@main`
+
+(you may wish to add `.mint/bin` to your $PATH).
