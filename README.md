@@ -18,10 +18,9 @@ repotools sync-repo \
     ~/path/to/your-repo-private
 ```
 
-## Requirements
+## Requirements for installation using Mint
 
-* Xcode 14.1 or higher
-* macOS 13.0.0 or higher
+* macOS 13.0.0 or higher, or [Linux](https://github.com/yonaskolb/Mint#linux)
 
 ## Installation: 
 
