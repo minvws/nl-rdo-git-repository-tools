@@ -18,13 +18,11 @@ repotools sync-repo \
     ~/path/to/your-repo-private
 ```
 
-## Requirements for installation using Mint
-
-* macOS 13.0.0 or higher, or [Linux](https://github.com/yonaskolb/Mint#linux)
-
 ## Installation: 
 
-The project uses the [Mint](https://github.com/yonaskolb/Mint) package manager: 
+The project can be installed using the [Mint](https://github.com/yonaskolb/Mint) package manager, which works on macOS and [Linux](https://github.com/yonaskolb/Mint#linux). 
+
+Note: the project uses Swift Regex Literals and so if targeting macOS it should be >=13.0.0.
 
 `brew install mint` 
 
@@ -32,8 +30,9 @@ After that, you can install this tool globally using:
 
 `mint install minvws/nl-rdo-git-repository-tools@main`
 
-or 
+or
 
 `mint install git@github.com:minvws/nl-rdo-git-repository-tools.git@main`
 
 (you may wish to add `.mint/bin` to your $PATH).
+
